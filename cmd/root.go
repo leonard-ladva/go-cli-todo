@@ -65,6 +65,8 @@ func init() {
 	viper.SetEnvPrefix("TODOER")
 
 	viper.SetDefault("todo file", "todos.json")
+	viper.SetDefault("list after add", true)
+	viper.SetDefault("list after remove", true)
 
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
