@@ -1,4 +1,4 @@
-module github.com/leonard-ladva/go-cli-todo
+module github.com/leonard-ladva/todoer
 
 go 1.23.0
 

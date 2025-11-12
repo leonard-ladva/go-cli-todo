@@ -9,13 +9,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-var addCmd = &cobra.Command{
-	Use: "add todo",
-	Short: "Add a task",
-	Args: cobra.ExactArgs(1),
+var listCmd = &cobra.Command{
+	Use: "list",
+	Short: "list all tasks",
 	Run: func(cmd *cobra.Command, args []string) {
 		filePath := viper.GetString("todo file") 
-		todo := args[0]
 
 		var todos []string
 
@@ -31,21 +29,12 @@ var addCmd = &cobra.Command{
 			os.Exit(2)
 		}
 
-		todos = append(todos, todo)
-
-		newData, err := json.MarshalIndent(todos, "", " ")
-		if err != nil {
-			fmt.Printf("Error converting to json %v\n", err)
-			os.Exit(2)
-		}
-		err = os.WriteFile(filePath, newData, 0644)
-		if err != nil {
-			fmt.Printf("Error converting to json %v\n", err)
-			os.Exit(2)
+		for index, todo := range todos {
+			fmt.Printf("%d: %s\n", index, todo)
 		}
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(addCmd)
+	rootCmd.AddCommand(listCmd)
 }

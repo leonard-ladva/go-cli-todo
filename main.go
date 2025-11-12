@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/leonard-ladva/go-cli-todo/cmd"
+import "github.com/leonard-ladva/todoer/cmd"
 
 func main() {
 	cmd.Execute()
