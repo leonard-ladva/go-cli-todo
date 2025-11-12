@@ -10,7 +10,7 @@ import (
 
 
 func Add(todo string) {
-	filePath := viper.GetString("todo file")
+	filePath := viper.GetString("file")
 
 	var todos []string
 

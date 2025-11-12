@@ -12,10 +12,11 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list all tasks",
 	Run: func(cmd *cobra.Command, args []string) {
-		filePath := viper.GetString("todo file")
+		filePath := viper.GetString("file")
 
 		var todos = operations.List(filePath)
 
+		fmt.Println(filePath)
 		for index, todo := range todos {
 			fmt.Printf("%d: %s\n", index, todo)
 		}

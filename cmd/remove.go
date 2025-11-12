@@ -15,7 +15,7 @@ var removeCmd = &cobra.Command{
 	Short: "Remove a task",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		filePath := viper.GetString("todo file")
+		filePath := viper.GetString("file")
 		index, err := strconv.Atoi(args[0])
 		if err != nil {
 			fmt.Printf("Error converting index %v\n", err)

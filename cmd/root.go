@@ -24,6 +24,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -50,6 +51,9 @@ func Execute() {
 }
 
 func init() {
+	rootCmd.PersistentFlags().StringP("file", "f", "todos.json", "Specify todo list file")
+	_ = viper.BindPFlag("file", rootCmd.PersistentFlags().Lookup("file"))
+
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	} else {
@@ -61,10 +65,10 @@ func init() {
 		viper.SetConfigType("yaml")
 	}
 
-	viper.AutomaticEnv()
 	viper.SetEnvPrefix("TODOER")
+	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
+	viper.AutomaticEnv()
 
-	viper.SetDefault("todo file", "todos.json")
 	viper.SetDefault("list after add", true)
 	viper.SetDefault("list after remove", true)
 
@@ -82,7 +86,7 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 
