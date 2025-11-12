@@ -23,6 +23,9 @@ var removeCmd = &cobra.Command{
 		}
 		operations.Remove(index, filePath)
 
+		if viper.GetBool("list after remove") {
+			listCmd.Run(listCmd, nil)
+		}
 	},
 }
 
