@@ -22,14 +22,17 @@ THE SOFTWARE.
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
+var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "todo",
+	Use:   "todoer",
 	Short: "Task list management tool",
 	Long: `Add, remove, view and edit tasks.`,
 	// Uncomment the following line if your bare application
@@ -47,6 +50,28 @@ func Execute() {
 }
 
 func init() {
+	if cfgFile != "" {
+		viper.SetConfigFile(cfgFile)
+	} else {
+		home, err := os.UserHomeDir()
+		cobra.CheckErr(err)
+
+		viper.AddConfigPath(home)
+		viper.SetConfigName(".todoer")
+		viper.SetConfigType("yaml")
+	}
+
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix("TODOER")
+
+	viper.SetDefault("todo file", "todos.json")
+
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	}
+
+
+
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.

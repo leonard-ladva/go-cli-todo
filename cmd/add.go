@@ -6,14 +6,15 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var addCmd = &cobra.Command{
-	Use: "add [todo]",
+	Use: "add todo",
 	Short: "Add a task",
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		filePath := "file.json"
+		filePath := viper.GetString("todo file") 
 		todo := args[0]
 
 		var todos []string
